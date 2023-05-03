@@ -71,8 +71,8 @@ keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
 
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)
-keymap("n", "<leader><F7>", "<cmd>setlocal spell! spelllang=es<cr>", opts)
-keymap("n", "<leader><F8>", "<cmd>setlocal spell! spelllang=en_US<cr>", opts)
+keymap("n", "<leader><F7>", "<cmd>setlocal spell! spelllang=es_mx<cr>", opts)
+keymap("n", "<leader><F8>", "<cmd>setlocal spell! spelllang=en_us<cr>", opts)
 
 
 -- Telekasten note system

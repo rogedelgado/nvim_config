@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require("lazy").setup({
   -- UI elements
   "nvim-lua/popup.nvim",
@@ -123,7 +124,6 @@ require("lazy").setup({
    end,
   },
 
-
   -- A better aproach to note taking. Zettlecasten
   {
     "renerocksai/telekasten.nvim",
@@ -131,3 +131,9 @@ require("lazy").setup({
   }
 
 })
+
+-- For some reason the lazy.nvim plugin seems to override the /site path in the rtp. 
+-- This line add it again. This is needed in order to spell to work, but the download of the spell file must be done manually
+-- Maybe in a newer version of neovim this could be fixed.
+-- Please, check https://github.com/neovim/neovim/issues/23082 for details of the issue.
+vim.opt.rtp:append(vim.fn.stdpath("data") .. "/site")

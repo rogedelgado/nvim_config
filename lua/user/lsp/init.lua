@@ -1,3 +1,3 @@
 require("mason").setup()
-require("mason-lspconfig").setup()
-local lspconfig = require("lspconfig")
+require("user.lsp.lsp-config")
+

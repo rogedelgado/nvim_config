@@ -142,8 +142,8 @@ nvim_tree.setup {
           staged = "✓",
           unmerged = "",
           renamed = "➜",
-          untracked = "",
-          deleted = "",
+          untracked = "",
+          deleted = "󱊙",
           ignored = "◌",
 
         },

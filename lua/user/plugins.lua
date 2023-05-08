@@ -42,7 +42,7 @@ require("lazy").setup({
       "kyazdani42/nvim-tree.lua",
       commit = "bb375fb20327c49920c41d2b51c1ce2f4fe7deb3",
       dependencies = {
-        "kyazdani42/nvim-web-devicons", -- optional, for file icon
+        "nvim-tree/nvim-web-devicons", -- optional, for file icon
       }
   },
 
@@ -90,6 +90,26 @@ require("lazy").setup({
     build = "cd app && npm install",
     init = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
   },
+  {"dhruvasagar/vim-table-mode"}, -- Vim Table mode to aid in the writing of tables in markdown
+  {
+    'kiran94/edit-markdown-table.nvim',
+    config = function()
+        require('edit-markdown-table').setup({
+          require("dressing").setup({
+            input = {
+                enabled = true,
+                start_in_insert = false,
+                win_options = {
+                    winblend = 0,
+                    wrap = true,
+                }
+              }
+            })
+        })
+    end,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "EditMarkdownTable",
+  },
 
   -- Translation aid when wrinting some markdown
   {'uga-rosa/translate.nvim'},
@@ -128,7 +148,16 @@ require("lazy").setup({
   {
     "renerocksai/telekasten.nvim",
     dependencies = {'nvim-telescope/telescope.nvim'}
-  }
+  },
+
+  -- LSP configuration ---
+  {
+    "williamboman/mason.nvim",
+    commit="057ac5ca159c83e302a55bd839a96ff1ea2396db",
+    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
+  },
+  {"neovim/nvim-lspconfig", commit="3bd4ca412982afa6f88bb7ef890660cee51c3e58"},
+  {"jose-elias-alvarez/null-ls.nvim"}
 
 })
 

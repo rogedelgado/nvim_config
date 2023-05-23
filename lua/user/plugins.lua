@@ -157,7 +157,10 @@ require("lazy").setup({
     build = ":MasonUpdate" -- :MasonUpdate updates registry contents
   },
   {"neovim/nvim-lspconfig", commit="3bd4ca412982afa6f88bb7ef890660cee51c3e58"},
-  {"jose-elias-alvarez/null-ls.nvim"}
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies= {"ThePrimeagen/refactoring.nvim"} 
+  }
 
 })
 

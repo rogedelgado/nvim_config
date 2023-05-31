@@ -85,7 +85,7 @@ require("lazy").setup({
   "dpelle/vim-LanguageTool",
 
   -- Markdown support
-  "godlygeek/tabular",
+  "godlygeek/tabular", -- I do use this plugin. Keep it here. RDG
   { "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
     init = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
@@ -160,7 +160,9 @@ require("lazy").setup({
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies= {"ThePrimeagen/refactoring.nvim"} 
-  }
+  },
+
+  {"freitass/todo.txt-vim"}
 
 })
 

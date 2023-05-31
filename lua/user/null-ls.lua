@@ -11,6 +11,7 @@ null_ls.setup({
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.yamlfmt,
         null_ls.builtins.diagnostics.yamllint,
-        null_ls.builtins.formatting.pg_format
+        null_ls.builtins.formatting.pg_format,
+        null_ls.builtins.formatting.beautysh
     },
 })

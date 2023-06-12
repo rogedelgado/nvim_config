@@ -5,25 +5,25 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- require('lspconfig').pyright.setup {
 --   capabilities = capabilities,
--- }
--- require('lspconfig').dockerls.setup {
---   capabilities = capabilities,
--- }
--- require('lspconfig').yamlls.setup {
---   capabilities = capabilities,
---   settings = {
---       yaml = {
---         schemas = {
---           ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab/ci/*"
---         },
---       },
---     }
--- }
--- require('lspconfig').bashls.setup {
---   capabilities = capabilities,
--- }
+require('lspconfig').pyright.setup {
+}
+require('lspconfig').dockerls.setup {
+  capabilities = capabilities,
+}
+require('lspconfig').yamlls.setup {
+  capabilities = capabilities,
+  settings = {
+      yaml = {
+        schemas = {
+          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab/ci/*"
+        },
+      },
+    }
+}
+require('lspconfig').bashls.setup {
+  capabilities = capabilities,
+}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

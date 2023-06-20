@@ -25,6 +25,8 @@ require('lspconfig').bashls.setup {
   capabilities = capabilities,
 }
 
+require'lspconfig'.marksman.setup{}
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float)

@@ -52,6 +52,7 @@ require("lazy").setup({
 
   -- Git
   {"lewis6991/gitsigns.nvim", commit="7dfe4be94b4f84a9931098f0f0f618d055e50bd5"},
+  {"tpope/vim-fugitive"},
 
   -- Treesitter
   {
@@ -162,7 +163,25 @@ require("lazy").setup({
     dependencies= {"ThePrimeagen/refactoring.nvim"} 
   },
 
-  {"freitass/todo.txt-vim"}
+  {"freitass/todo.txt-vim"},
+
+  {
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
+    }
+    
+  },
 
 })
 

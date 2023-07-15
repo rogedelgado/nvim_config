@@ -95,5 +95,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>fo', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+
+    -- Neotest
+    vim.keymap.set('n', '<space>tm', "<cmd>lua require('neotest').run.run()<cr>", opts)
+    vim.keymap.set('n', '<space>tf', "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", opts)
+    vim.keymap.set('n', '<space>tS', "<cmd>lua require('neotest').summary.toggle()<cr>", opts)
   end,
 })

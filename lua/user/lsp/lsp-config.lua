@@ -26,6 +26,7 @@ require('lspconfig').bashls.setup {
 }
 
 require'lspconfig'.marksman.setup{}
+require'lspconfig'.rust_analyzer.setup{}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

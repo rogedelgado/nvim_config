@@ -83,7 +83,7 @@ require("lazy").setup({
 
   ------------------   Better writing experience
   --Better writing help
-  "dpelle/vim-LanguageTool",
+  -- "dpelle/vim-LanguageTool",
 
   -- Markdown support
   "godlygeek/tabular", -- I do use this plugin. Keep it here. RDG

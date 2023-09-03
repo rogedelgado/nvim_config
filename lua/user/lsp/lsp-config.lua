@@ -6,12 +6,12 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 --   capabilities = capabilities,
-require('lspconfig').pyright.setup {
+lspconfig.pyright.setup {
 }
-require('lspconfig').dockerls.setup {
+lspconfig.dockerls.setup {
   capabilities = capabilities,
 }
-require('lspconfig').yamlls.setup {
+lspconfig.yamlls.setup {
   capabilities = capabilities,
   settings = {
       yaml = {
@@ -21,12 +21,19 @@ require('lspconfig').yamlls.setup {
       },
     }
 }
-require('lspconfig').bashls.setup {
+lspconfig.bashls.setup {
   capabilities = capabilities,
 }
 
-require'lspconfig'.marksman.setup{}
-require'lspconfig'.rust_analyzer.setup{}
+lspconfig.marksman.setup{}
+lspconfig.rust_analyzer.setup{}
+lspconfig.ltex.setup{
+  settings = {
+    ltex={
+      language = "en-US",
+    },
+  },
+}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

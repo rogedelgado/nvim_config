@@ -71,6 +71,8 @@ keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
 
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)
+keymap("n", "<leader>De", "<cmd>lua vim.diagnostic.enable()<cr>", opts)
+keymap("n", "<leader>Dd", "<cmd>lua vim.diagnostic.disable()<cr>", opts)
 keymap("n", "<leader><F7>", "<cmd>setlocal spell! spelllang=es_mx<cr>", opts)
 keymap("n", "<leader><F8>", "<cmd>setlocal spell! spelllang=en_us<cr>", opts)
 
@@ -98,3 +100,7 @@ keymap("v", "tes", ":Translate ES --source=EN <CR>", opts)
 -- Open link under cursor in the browser
 -- This remap is needed because the nvim-tree plugin disables the netrw plugin.
 keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
+
+
+-- Custom commands
+vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."

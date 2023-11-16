@@ -49,7 +49,7 @@ keymap("v", ">", ">gv", opts)
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==", opts)
 keymap("v", "<A-k>", ":m .-2<CR>==", opts)
-keymap("v", "p", '"_dP', opts)
+-- keymap("v", "p", '"_dP', opts)
 
 -- Visual Block --
 -- Move text up and down
@@ -104,3 +104,4 @@ keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1
 
 -- Custom commands
 vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
+vim.cmd "command SelCurl set splitright | vnew | set filetype=sh | '<,'>read !sh # | jq ."

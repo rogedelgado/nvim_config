@@ -27,6 +27,7 @@ lspconfig.bashls.setup {
 
 lspconfig.marksman.setup{}
 lspconfig.rust_analyzer.setup{}
+lspconfig.lemminx.setup{}
 lspconfig.ltex.setup{
   settings = {
     ltex={

@@ -53,6 +53,7 @@ require("lazy").setup({
   -- Git
   {"lewis6991/gitsigns.nvim", commit="7dfe4be94b4f84a9931098f0f0f618d055e50bd5"},
   {"tpope/vim-fugitive"},
+  {"sindrets/diffview.nvim"},
 
   -- Treesitter
   {

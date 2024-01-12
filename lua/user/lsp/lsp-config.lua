@@ -16,7 +16,8 @@ lspconfig.yamlls.setup {
   settings = {
       yaml = {
         schemas = {
-          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab/ci/*"
+          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab/ci/*",
+          ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "**/*openapi.yml"
         },
       },
     }

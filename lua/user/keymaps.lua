@@ -97,6 +97,9 @@ keymap("n", "<leader>zv", "<cmd>lua require('telekasten').preview_img()<CR>", op
 keymap("v", "ten", ":Translate EN --source=ES<CR>", opts)
 keymap("v", "tes", ":Translate ES --source=EN <CR>", opts)
 
+-- Spellcheck
+keymap("n", "<leader>ss", "<cmd>lua require('telescope.builtin').spell_suggest()<CR>", opts)
+
 -- Open link under cursor in the browser
 -- This remap is needed because the nvim-tree plugin disables the netrw plugin.
 keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)

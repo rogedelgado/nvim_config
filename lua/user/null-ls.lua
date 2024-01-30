@@ -13,6 +13,11 @@ null_ls.setup({
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.formatting.pg_format,
         null_ls.builtins.formatting.beautysh,
-        null_ls.builtins.formatting.rustfmt 
+        null_ls.builtins.formatting.rustfmt,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.shellcheck
     },
 })
+
+
+

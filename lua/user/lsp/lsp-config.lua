@@ -7,6 +7,7 @@ local lspconfig = require('lspconfig')
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 --   capabilities = capabilities,
 lspconfig.pyright.setup {
+    capabilities = capabilities
 }
 lspconfig.dockerls.setup {
   capabilities = capabilities,
@@ -35,6 +36,9 @@ lspconfig.ltex.setup{
       language = "en-US",
     },
   },
+}
+lspconfig.cucumber_language_server.setup{
+    capabilities = capabilities
 }
 
 -- Global mappings.

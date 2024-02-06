@@ -32,11 +32,15 @@ require("lazy").setup({
   {"hrsh7th/cmp-cmdline", commit="5af1bb7d722ef8a96658f01d6eb219c4cf746b32"}, -- cmdline completions
   {"saadparwaiz1/cmp_luasnip", commit="18095520391186d634a0045dacaa346291096566"}, -- snippet completions
   {"hrsh7th/cmp-nvim-lsp", commit="0e6b2ed705ddcff9738ec4ea838141654f12eeef"},
+  {"hrsh7th/cmp-nvim-lsp-signature-help", commit="3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1"},
   -- snippets
-  "L3MON4D3/LuaSnip", --snippet engine
-  "rafamadriz/friendly-snippets", -- a bunch of snippets to use
-
-
+  { 
+      "L3MON4D3/LuaSnip",
+      version = "v2.*",
+      --snippet engine
+      dependencies = { "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
+  }, 
+  
   -- Nvim Tree
   {
       "kyazdani42/nvim-tree.lua",

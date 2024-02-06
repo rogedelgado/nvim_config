@@ -71,17 +71,28 @@ keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+
+-- Tree 
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
+-- Find files and text inside files
 keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
-keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", opts)
 
+-- General writing --
+--
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)
 keymap("n", "<leader>De", "<cmd>lua vim.diagnostic.enable()<cr>", opts)
 keymap("n", "<leader>Dd", "<cmd>lua vim.diagnostic.disable()<cr>", opts)
+
+-- Translate
+keymap("v", "ten", ":Translate EN --source=ES<CR>", opts)
+keymap("v", "tes", ":Translate ES --source=EN <CR>", opts)
+
+-- Spellcheck
 keymap("n", "<leader><F7>", "<cmd>setlocal spell! spelllang=es_mx<cr>", opts)
 keymap("n", "<leader><F8>", "<cmd>setlocal spell! spelllang=en_us<cr>", opts)
-
+keymap("n", "<leader>ss", "<cmd>lua require('telescope.builtin').spell_suggest()<CR>", opts)
 
 -- Telekasten note system
 keymap("n", "<leader>z", "<cmd>lua require('telekasten').panel()<CR>", opts)
@@ -99,13 +110,6 @@ keymap("n", "<leader>zr", "<cmd>lua require('telekasten').rename_note()<CR>", op
 keymap("n", "<leader>zp", "<cmd>lua require('telekasten').paste_img_and_link()<CR>", opts)
 keymap("n", "<leader>zv", "<cmd>lua require('telekasten').preview_img()<CR>", opts)
 
--- translate
-keymap("v", "ten", ":Translate EN --source=ES<CR>", opts)
-keymap("v", "tes", ":Translate ES --source=EN <CR>", opts)
-
--- Spellcheck
-keymap("n", "<leader>ss", "<cmd>lua require('telescope.builtin').spell_suggest()<CR>", opts)
-
 -- Open link under cursor in the browser
 -- This remap is needed because the nvim-tree plugin disables the netrw plugin.
 keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
@@ -114,3 +118,12 @@ keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1
 -- Custom commands
 vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
 vim.cmd "command SelCurl set splitright | vnew | set filetype=sh | '<,'>read !sh # | jq ."
+
+
+-- Git mappings --
+keymap("n", "ghl", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
+keymap("n", "ghh", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
+keymap("n", "gbl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", opts)
+keymap("n", "gph", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", opts)
+keymap("n", "grh", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", opts)
+keymap("n", "grb", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", opts)

@@ -75,12 +75,14 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 -- Tree 
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
+-- Telescope
+keymap("n", "<leader>tsb", "<cmd>Telescope buffers<cr>", opts)
+
 -- Find files and text inside files
 keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
 keymap("n", "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", opts)
 
 -- General writing --
---
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)
 keymap("n", "<leader>De", "<cmd>lua vim.diagnostic.enable()<cr>", opts)
 keymap("n", "<leader>Dd", "<cmd>lua vim.diagnostic.disable()<cr>", opts)
@@ -114,11 +116,9 @@ keymap("n", "<leader>zv", "<cmd>lua require('telekasten').preview_img()<CR>", op
 -- This remap is needed because the nvim-tree plugin disables the netrw plugin.
 keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 
-
 -- Custom commands
 vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
 vim.cmd "command SelCurl set splitright | vnew | set filetype=sh | '<,'>read !sh # | jq ."
-
 
 -- Git mappings --
 keymap("n", "ghl", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)

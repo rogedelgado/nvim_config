@@ -81,7 +81,7 @@ lspconfig.lua_ls.setup({
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<space>dl', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -144,6 +144,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>fo', function()
             vim.lsp.buf.format { async = true }
         end, opts)
+
+        vim.keymap.set('n', '<space>fs', "<cmd>Telescope lsp_document_symbols<cr>", { buffer= ev.buf, desc="[F]ind [S]ymbols"})
 
         -- Neotest
         vim.keymap.set('n', '<space>tm', "<cmd>lua require('neotest').run.run()<cr>", opts)

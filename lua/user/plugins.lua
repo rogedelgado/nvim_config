@@ -12,19 +12,23 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- UI elements
-  "nvim-lua/popup.nvim",
-  "nvim-lua/plenary.nvim",
-  {"nvim-lualine/lualine.nvim", commit="84ffb80e452d95e2c46fa29a98ea11a240f7843e"},
-  {"windwp/nvim-autopairs", commit="7566a86f44bb72ba2b1a609f528a27d93241502d"},
-  {"lukas-reineke/indent-blankline.nvim", commit="018bd04d80c9a73d399c1061fa0c3b14a7614399"},
-  "folke/which-key.nvim",
-  {"folke/zen-mode.nvim", commit="6e6c963d70a8e47854fa656987666bfb863f9c4e"}, --Distraction free writing
-  "lunarvim/colorschemes", -- A bunch of colorschemes you can try out
-  "folke/tokyonight.nvim", 
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-  {"norcalli/nvim-colorizer.lua"},
-
+	-- UI elements
+	"nvim-lua/popup.nvim",
+	"nvim-lua/plenary.nvim",
+	{ "nvim-lualine/lualine.nvim", commit = "84ffb80e452d95e2c46fa29a98ea11a240f7843e" },
+	{ "windwp/nvim-autopairs", commit = "7566a86f44bb72ba2b1a609f528a27d93241502d" },
+	{ "lukas-reineke/indent-blankline.nvim", commit = "018bd04d80c9a73d399c1061fa0c3b14a7614399" },
+	"folke/which-key.nvim",
+	{ "folke/zen-mode.nvim", commit = "6e6c963d70a8e47854fa656987666bfb863f9c4e" }, --Distraction free writing
+	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
+	"folke/tokyonight.nvim",
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = { signs = false },
+	},
+	{ "norcalli/nvim-colorizer.lua" },
 
 	-- Completions
 	{ "hrsh7th/nvim-cmp", commit = "e28fb7a730b1bd425fdddfdbd3d36bb84bd77611" },
@@ -140,38 +144,37 @@ require("lazy").setup({
 		dependencies = { "nvim-telescope/telescope.nvim" },
 	},
 
-  -- LSP configuration ---
-  {
-    "williamboman/mason.nvim",
-    commit="057ac5ca159c83e302a55bd839a96ff1ea2396db",
-    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
-  },
-  {"neovim/nvim-lspconfig", commit="3bd4ca412982afa6f88bb7ef890660cee51c3e58"},
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies= {"ThePrimeagen/refactoring.nvim"} 
-  },
+	-- LSP configuration ---
+	{
+		"williamboman/mason.nvim",
+		commit = "057ac5ca159c83e302a55bd839a96ff1ea2396db",
+		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+	},
+	{ "neovim/nvim-lspconfig", commit = "3bd4ca412982afa6f88bb7ef890660cee51c3e58" },
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		dependencies = { "ThePrimeagen/refactoring.nvim" },
+	},
 
-  {"freitass/todo.txt-vim"},
+	{ "freitass/todo.txt-vim" },
 
-  {
-    "kdheepak/lazygit.nvim",
-    -- optional for floating window border decoration
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-  },
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python",
-    }
-    
-  },
-  {"jrop/jq.nvim"},
+	{
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/neotest-python",
+		},
+	},
+	{ "jrop/jq.nvim" },
 
 	-- Todo list
 	{ "freitass/todo.txt-vim" },

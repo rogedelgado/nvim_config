@@ -29,6 +29,7 @@ require("lazy").setup({
 		opts = { signs = false },
 	},
 	{ "norcalli/nvim-colorizer.lua" },
+	{ "nvim-neotest/nvim-nio" },
 
 	-- Completions
 	{ "hrsh7th/nvim-cmp", commit = "e28fb7a730b1bd425fdddfdbd3d36bb84bd77611" },
@@ -57,7 +58,7 @@ require("lazy").setup({
 	},
 
 	-- Telescope
-	{ "nvim-telescope/telescope.nvim", commit = "713d26b98583b160b50fb827adb751f768238ed3" },
+	{ "nvim-telescope/telescope.nvim", commit = "6312868392331c9c0f22725041f1ec2bef57c751" },
 	{ "nvim-telescope/telescope-media-files.nvim", commit = "0826c7a730bc4d36068f7c85cf4c5b3fd9fb570a" },
 
 	-- Git
@@ -75,7 +76,7 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		commit = "adf72368f6af026b4cd19851d34a313a54159857",
+		commit = "f197a15b0d1e8d555263af20add51450e5aaa1f0",
 		build = ":TSUpdate",
 	},
 	"p00f/nvim-ts-rainbow",

@@ -146,6 +146,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
 
         vim.keymap.set('n', '<space>fs', "<cmd>Telescope lsp_document_symbols<cr>", { buffer= ev.buf, desc="[F]ind [S]ymbols"})
+        vim.keymap.set("n", "<leader>ai", require("lspimport").import, { noremap = true, buffer= ev.buf, desc="[A]uto [I]mport"})
 
         -- Neotest
         vim.keymap.set('n', '<space>tm', "<cmd>lua require('neotest').run.run()<cr>", opts)

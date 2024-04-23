@@ -20,10 +20,15 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+-- keymap("n", "<C-h>", "<C-w>h", opts)
+-- keymap("n", "<C-j>", "<C-w>j", opts)
+-- keymap("n", "<C-k>", "<C-w>k", opts)
+-- keymap("n", "<C-l>", "<C-w>l", opts)
+
+keymap("n", "<c-h>", "<cmd>:TmuxNavigateLeft<cr>", opts)
+keymap("n", "<c-j>", "<cmd>:TmuxNavigateDown<cr>", opts)
+keymap("n", "<c-k>", "<cmd>:TmuxNavigateUp<cr>", opts)
+keymap("n", "<c-l>", "<cmd>:TmuxNavigateRight<cr>", opts)
 
 keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
@@ -129,3 +134,4 @@ keymap("n", "gbl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", opts)
 keymap("n", "gph", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", opts)
 keymap("n", "grh", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", opts)
 keymap("n", "grb", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", opts)
+keymap("n", "gbb", ":G blame<cr>", opts)

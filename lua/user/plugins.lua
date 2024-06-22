@@ -21,6 +21,7 @@ require("lazy").setup({
 	"folke/which-key.nvim",
 	{ "folke/zen-mode.nvim", commit = "6e6c963d70a8e47854fa656987666bfb863f9c4e" }, --Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
+    "shaunsingh/nord.nvim",
 	"folke/tokyonight.nvim",
 	{
 		"folke/todo-comments.nvim",

@@ -6,6 +6,9 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 --   capabilities = capabilities,
+lspconfig.spectral.setup {
+    capabilities = capabilities,
+}
 lspconfig.pyright.setup {
     capabilities = capabilities
 }

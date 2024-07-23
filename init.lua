@@ -16,4 +16,5 @@ require "user.indentline"
 require "user.languagetool"
 require "user.zen-mode"
 require "user.telekasten"
+require "user.gitlab"
 

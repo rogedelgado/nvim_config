@@ -21,7 +21,7 @@ require("lazy").setup({
 	"folke/which-key.nvim",
 	{ "folke/zen-mode.nvim", commit = "6e6c963d70a8e47854fa656987666bfb863f9c4e" }, --Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
-    "shaunsingh/nord.nvim",
+	"shaunsingh/nord.nvim",
 	"folke/tokyonight.nvim",
 	{
 		"folke/todo-comments.nvim",
@@ -218,17 +218,44 @@ require("lazy").setup({
 	},
 	{ "jrop/jq.nvim" },
 
+	-- This allows not to use postman anymore
+	{
+		"oysandvik94/curl.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("curl").setup({})
+		end,
+	},
+
 	-- Todo list
 	{ "freitass/todo.txt-vim" },
 
 	-- Plugin developed by me
 	{ "roge/mamadas.nvim", dev = true },
+
+    -- Gitlab MR integration
+	{
+		"harrisoncramer/gitlab.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+			"nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
+		},
+		enabled = true,
+		build = function()
+			require("gitlab.server").build(true)
+		end, -- Builds the Go binary
+	},
 }, {
-      dev = {
-        path = "/home/roge/code",
-        patterns = {"roge"}, -- For example {"folke"}
-        fallback = false, -- Fallback to git when local plugin doesn't exist
-      },
+	dev = {
+		path = "/home/roge/code",
+		patterns = { "roge" }, -- For example {"folke"}
+		fallback = false, -- Fallback to git when local plugin doesn't exist
+	},
 })
 
 -- For some reason the lazy.nvim plugin seems to override the /site path in the rtp.

@@ -36,14 +36,14 @@ lspconfig.rust_analyzer.setup {}
 lspconfig.lemminx.setup {
     capabilities = capabilities,
 }
-lspconfig.ltex.setup {
-    capabilities = capabilities,
-    settings = {
-        ltex = {
-            language = "en-US",
-        },
-    },
-}
+-- lspconfig.ltex.setup {
+--     capabilities = capabilities,
+--     settings = {
+--         ltex = {
+--             language = "en-US",
+--         },
+--     },
+-- }
 lspconfig.cucumber_language_server.setup {
     capabilities = capabilities
 }

@@ -13,7 +13,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.isort,
 		null_ls.builtins.formatting.black,
 		null_ls.builtins.formatting.yamlfmt,
-		null_ls.builtins.formatting.pg_format,
+		null_ls.builtins.formatting.sql_formatter,
 		null_ls.builtins.formatting.beautysh,
 		null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.stylua,

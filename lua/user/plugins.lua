@@ -18,7 +18,6 @@ require("lazy").setup({
 	{ "nvim-lualine/lualine.nvim", commit = "84ffb80e452d95e2c46fa29a98ea11a240f7843e" },
 	{ "windwp/nvim-autopairs", commit = "7566a86f44bb72ba2b1a609f528a27d93241502d" },
 	{ "lukas-reineke/indent-blankline.nvim", commit = "018bd04d80c9a73d399c1061fa0c3b14a7614399" },
-	"folke/which-key.nvim",
 	{ "folke/zen-mode.nvim", commit = "6e6c963d70a8e47854fa656987666bfb863f9c4e" }, --Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
 	"shaunsingh/nord.nvim",
@@ -157,7 +156,7 @@ require("lazy").setup({
 	-- LSP configuration ---
 	{
 		"williamboman/mason.nvim",
-		commit = "057ac5ca159c83e302a55bd839a96ff1ea2396db",
+		-- commit = "057ac5ca159c83e302a55bd839a96ff1ea2396db",
 		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
 	},
 	{ "neovim/nvim-lspconfig", commit = "3bd4ca412982afa6f88bb7ef890660cee51c3e58" },

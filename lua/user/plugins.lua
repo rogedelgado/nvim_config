@@ -195,8 +195,7 @@ require("lazy").setup({
 	-- LSP configuration ---
 	{
 		"williamboman/mason.nvim",
-		-- commit = "057ac5ca159c83e302a55bd839a96ff1ea2396db",
-		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+        dependencies = { 'mason-org/mason-registry' },
 	},
 	{
 		"neovim/nvim-lspconfig",

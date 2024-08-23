@@ -83,6 +83,7 @@ end
 
 nvim_tree.setup({
 	on_attach = on_attach,
+	select_prompts = true,
 	disable_netrw = true,
 	hijack_netrw = true,
 	system_open = {

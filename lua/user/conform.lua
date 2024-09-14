@@ -1,6 +1,11 @@
 local conform = require("conform")
 
 conform.setup({
+    formatters = {
+        reformat_gherkin = {
+            command = "/home/roge/.local/share/nvim/mason/bin/reformat-gherkin"
+        }
+    },
     formatters_by_ft = {
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
@@ -11,6 +16,7 @@ conform.setup({
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "yamlfmt" },
         markdown = { "markdownlint" },
+        cucumber = { "reformat_gherkin"},
     },
 })
 

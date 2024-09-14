@@ -86,8 +86,8 @@ keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>tsb", "<cmd>Telescope buffers<cr>", opts)
 
 -- Find files and text inside files
-keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
-keymap("n", "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", opts)
+keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
+keymap("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", opts)
 
 -- General writing --
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)

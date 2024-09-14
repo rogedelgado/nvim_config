@@ -31,7 +31,7 @@ require("lazy").setup({
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = {},
 	},
 	{
 		"christoomey/vim-tmux-navigator",
@@ -43,7 +43,7 @@ require("lazy").setup({
 			"TmuxNavigatePrevious",
 		},
 	},
-	-- AutocompletonCompletions
+	-- Autocompletions
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -163,7 +163,13 @@ require("lazy").setup({
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		cmd = "EditMarkdownTable",
 	},
-	{ "ixru/nvim-markdown" },
+	{
+		"tadmccorkle/markdown.nvim",
+		ft = "markdown", -- or 'event = "VeryLazy"'
+		opts = {
+			-- configuration here or empty for defaults
+		},
+	},
 
 	-- Translation aid when wrinting some markdown
 	{ "uga-rosa/translate.nvim" },
@@ -205,6 +211,11 @@ require("lazy").setup({
 	{
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
+	},
+
+	-- Ansible filetype support and execution
+	{
+		"mfussenegger/nvim-ansible",
 	},
 
 	-- Todo task management
@@ -258,6 +269,7 @@ require("lazy").setup({
 	-- This allows not to use postman anymore
 	{
 		"oysandvik94/curl.nvim",
+		cmd = { "CurlOpen" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},

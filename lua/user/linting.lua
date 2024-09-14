@@ -3,6 +3,8 @@ local lint = require 'lint'
 lint.linters_by_ft = {
     markdown = { 'markdownlint' },
     python = { 'flake8' },
+    yaml = { "yamllint" },
+    ["yaml.ansible"] = { "ansible_lint"},
 }
 -- To allow other plugins to add linters to require('lint').linters_by_ft,
 -- instead set linters_by_ft like this:

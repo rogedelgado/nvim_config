@@ -34,7 +34,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		-- NOTE: Remember that Lua is a real programming language, and as such it is possible
 		-- to define small helper and utility functions so you don't have to repeat yourself.
-		--
+
+		-- Configuration of the diagnostics signs
+		local signs = {
+			{ name = "DiagnosticSignError", text = "" },
+			{ name = "DiagnosticSignWarn", text = "" },
+			{ name = "DiagnosticSignHint", text = "" },
+			{ name = "DiagnosticSignInfo", text = "" },
+		}
+
+		for _, sign in ipairs(signs) do
+			vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+		end
+
 		-- In this case, we create a function that lets us more easily define mappings specific
 		-- for LSP related items. It sets the mode, buffer and description for us each time.
 		local map = function(keys, func, desc)
@@ -150,7 +162,7 @@ local servers = {
 	--
 	marksman = {},
 	pyright = {},
-    ansiblels = {},
+	ansiblels = {},
 	yamlls = {
 		settings = {
 			yaml = {
@@ -185,7 +197,7 @@ local servers = {
 --  You can press `g?` for help in this menu.
 require("mason").setup({
 	providers = {
-		"mason.providers.client",
+		"mason.providers.client", --For some reason this config is needed in my setup. See :h mason-default-settings, in the providers section
 	},
 })
 
@@ -201,7 +213,8 @@ vim.list_extend(ensure_installed, {
 	"black",
 	"yamlfmt",
 	"beautysh",
-    "ansible-lint",
+	"ansible-lint",
+	"reformat-gherkin",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

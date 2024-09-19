@@ -188,9 +188,9 @@ require("lazy").setup({
 	},
 
 	-- LSP configuration ---
-    {
-        "mfussenegger/nvim-jdtls"
-    },
+	{
+		"mfussenegger/nvim-jdtls",
+	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {

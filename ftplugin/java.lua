@@ -64,8 +64,6 @@ vim.keymap.set("n", "<leader>JT", "<Cmd> lua require('jdtls').test_class()<CR>",
 -- Set a Vim motion to <Space> + <Shift>J + u to update the project configuration
 vim.keymap.set("n", "<leader>Ju", "<Cmd> JdtUpdateConfig<CR>", { desc = "[J]ava [U]pdate Config" })
 
-
-
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
 	-- The command that starts the language server
@@ -122,15 +120,15 @@ local config = {
 	-- for a list of options
 	settings = {
 		java = {
-            configuration = {
-                runtimes = {
-                    {
-                        name = "JavaSE-11",
-                        path = "/usr/lib/jvm/java-11-openjdk/",
-                    }
-                }
-            }
-        },
+			configuration = {
+				runtimes = {
+					{
+						name = "JavaSE-11",
+						path = "/usr/lib/jvm/java-11-openjdk/",
+					},
+				},
+			},
+		},
 	},
 
 	-- Language server `initializationOptions`
@@ -140,10 +138,12 @@ local config = {
 	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 	--
 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-	init_options = {
-		bundles = {},
-	},
+	-- init_options = {
+	-- 	-- bundles = bundles_extentions,
+	--        bundles = {vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1)}
+	-- },
 }
+
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 require("jdtls").start_or_attach(config)

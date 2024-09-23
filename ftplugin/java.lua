@@ -120,6 +120,9 @@ local config = {
 	-- for a list of options
 	settings = {
 		java = {
+			codeGeneration = {
+                generateComments = true,
+            },
 			configuration = {
 				runtimes = {
 					{

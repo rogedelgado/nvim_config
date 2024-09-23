@@ -169,6 +169,7 @@ local servers = {
 				schemas = {
 					["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab/ci/*",
 					["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "**/*openapi.yml",
+                    ["https://json.schemastore.org/mkdocs-1.6.json"] = "mkdocs.yml",
 				},
 			},
 		},

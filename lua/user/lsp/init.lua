@@ -162,7 +162,8 @@ local servers = {
 	--
 	marksman = {},
 	pyright = {},
-	ansiblels = {},
+    ansiblels = {},
+    dockerls = {},
 	yamlls = {
 		settings = {
 			yaml = {
@@ -212,10 +213,12 @@ vim.list_extend(ensure_installed, {
 	"yamllint",
 	"isort",
 	"black",
-	"yamlfmt",
 	"beautysh",
 	"ansible-lint",
 	"reformat-gherkin",
+    "xmlformatter",
+    "prettier",
+    "hadolint",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

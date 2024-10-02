@@ -4,7 +4,8 @@ lint.linters_by_ft = {
     markdown = { 'markdownlint' },
     python = { 'flake8' },
     yaml = { "yamllint" },
-    ["yaml.ansible"] = { "ansible_lint"},
+    ["yaml.ansible"] = { "ansible_lint",},
+    dockerfile = {"hadolint"},
 }
 -- To allow other plugins to add linters to require('lint').linters_by_ft,
 -- instead set linters_by_ft like this:

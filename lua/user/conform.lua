@@ -14,9 +14,10 @@ conform.setup({
         -- rust = { "rustfmt", lsp_format = "fallback" },
         -- Conform will run the first available formatter
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
-        yaml = { "yamlfmt" },
+        yaml = { "prettier" },
         markdown = { "markdownlint" },
         cucumber = { "reformat_gherkin"},
+        xml = {"xmlformat"},
     },
 })
 

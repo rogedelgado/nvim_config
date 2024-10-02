@@ -89,7 +89,7 @@ local config = {
 
 		-- 💀
 		"-jar",
-		"/home/roge/Downloads/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+		"/home/roge/Downloads/jdtls/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
 		-- Must point to the                                                     Change this to
 		-- eclipse.jdt.ls installation                                           the actual version
@@ -121,13 +121,20 @@ local config = {
 	settings = {
 		java = {
 			codeGeneration = {
-                generateComments = true,
-            },
+				generateComments = true,
+			},
 			configuration = {
+				-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+				-- And search for `interface RuntimeOption`
+				-- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
 				runtimes = {
 					{
 						name = "JavaSE-11",
 						path = "/usr/lib/jvm/java-11-openjdk/",
+					},
+					{
+						name = "JavaSE-1.7",
+						path = "/usr/lib/jvm/java-7-jdk/",
 					},
 				},
 			},

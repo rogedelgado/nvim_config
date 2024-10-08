@@ -83,7 +83,8 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- Telescope
-keymap("n", "<leader>tsb", "<cmd>Telescope buffers<cr>", opts)
+keymap("n", "<leader>tb", "<cmd>Telescope buffers<cr>", opts)
+keymap("n", "<leader>tk", "<cmd>Telescope keymaps<cr>", opts)
 
 -- Find files and text inside files
 keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)

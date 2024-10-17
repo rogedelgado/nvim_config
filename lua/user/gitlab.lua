@@ -7,4 +7,10 @@ gl.setup({
 	discussion_tree = {
 		position = "bottom",
 	},
+	discussion_signs = {
+		icons = {
+			comment = "",
+			range = " |",
+		},
+	},
 })

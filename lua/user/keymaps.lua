@@ -20,11 +20,6 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
--- keymap("n", "<C-h>", "<C-w>h", opts)
--- keymap("n", "<C-j>", "<C-w>j", opts)
--- keymap("n", "<C-k>", "<C-w>k", opts)
--- keymap("n", "<C-l>", "<C-w>l", opts)
-
 keymap("n", "<c-h>", "<cmd>:TmuxNavigateLeft<cr>", opts)
 keymap("n", "<c-j>", "<cmd>:TmuxNavigateDown<cr>", opts)
 keymap("n", "<c-k>", "<cmd>:TmuxNavigateUp<cr>", opts)
@@ -47,8 +42,6 @@ keymap("n", "<leader>q", ":q!<CR>", opts)
 
 -- NO highlight
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
-
-
 
 -- Insert --
 -- Press jk fast to enter
@@ -85,6 +78,7 @@ keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 -- Telescope
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<cr>", opts)
 keymap("n", "<leader>tk", "<cmd>Telescope keymaps<cr>", opts)
+
 
 -- Find files and text inside files
 keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
@@ -125,41 +119,21 @@ keymap("n", "<leader>zv", "<cmd>lua require('telekasten').preview_img()<CR>", op
 -- This remap is needed because the nvim-tree plugin disables the netrw plugin.
 keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 
--- Custom commands
-vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
-vim.cmd "command SelCurl set splitright | vnew | set filetype=sh | '<,'>read !sh # | jq ."
 
 -- Git mappings --
 keymap("n", "ghl", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
 keymap("n", "ghh", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
 keymap("n", "gbl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", opts)
-keymap("n", "gph", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", opts)
-keymap("n", "grh", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", opts)
+keymap("n", "ghp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", opts)
+keymap("n", "ghr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", opts)
 keymap("n", "grb", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", opts)
 keymap("n", "gbb", ":G blame<cr>", opts)
+keymap("n", "gcb", "<cmd>Telescope git_branches<cr>", opts)
 
--- Gitlab Code review mappings
--- keymap("n", "glb", "<cmd>lua require 'gitlab'.choose_merge_request()<cr>", opts)
--- keymap("n", "glr", "<cmd>lua require 'gitlab'.review()<cr>", opts)
--- keymap("n", "gls", "<cmd>lua require 'gitlab'.summary()<cr>",opts)
--- keymap("n", "glA", "<cmd>lua require 'gitlab'.approve()<cr>",opts)
--- keymap("n", "glR", "<cmd>lua require 'gitlab'.revoke()<cr>",opts)
--- keymap("n", "glq", "<cmd>lua require 'gitlab'.create_comment()<cr>", opts)
--- keymap("v", "glc", "<cmd>lua require 'gitlab'.create_multiline_comment()<cr>", opts)
--- keymap("v", "glC", "<cmd>lua require 'gitlab'.create_comment_suggestion()<cr>",opts)
--- keymap("n", "glO", "<cmd>lua require 'gitlab'.create_mr()<cr>",opts)
--- keymap("n", "glm", "<cmd>lua require 'gitlab'.move_to_discussion_tree_from_diagnostic()<cr>", opts)
--- keymap("n", "gln", "<cmd>lua require 'gitlab'.create_note()<cr>",opts)
--- keymap("n", "gld", "<cmd>lua require 'gitlab'.toggle_discussions()<cr>",opts)
--- keymap("n", "glaa", "<cmd>lua require 'gitlab'.add_assignee()<cr>",opts)
--- keymap("n", "glad", "<cmd>lua require 'gitlab'.delete_assignee()<cr>",opts)
--- keymap("n", "glla", "<cmd>lua require 'gitlab'.add_label()<cr>",opts)
--- keymap("n", "glld", "<cmd>lua require 'gitlab'.delete_label()<cr>",opts)
--- keymap("n", "glra", "<cmd>lua require 'gitlab'.add_reviewer()<cr>",opts)
--- keymap("n", "glrd", "<cmd>lua require 'gitlab'.delete_reviewer()<cr>",opts)
--- keymap("n", "glp", "<cmd>lua require 'gitlab'.pipeline()<cr>",opts)
--- keymap("n", "glo", "<cmd>lua require 'gitlab'.open_in_browser()<cr>",opts)
--- keymap("n", "glM", "<cmd>lua require 'gitlab'.merge()<cr>",opts)
--- keymap("n", "glu", "<cmd>lua require 'gitlab'.copy_mr_url()<cr>",opts)
--- keymap("n", "glP", "<cmd>lua require 'gitlab'.publish_all_drafts()<cr>",opts)
--- keymap("n", "glD", "<cmd>lua require 'gitlab'.toggle_draft_mode()<cr>",opts)
+
+-- Custom commands
+vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
+vim.cmd "command SelCurl set splitright | vnew | set filetype=sh | '<,'>read !sh # | jq ."
+vim.cmd "command! BufCurOnly execute '%bdelete|edit#|bdelete#'"
+
+keymap("n", "<leader>db", "<cmd>BufCurOnly<cr>", opts )

@@ -18,6 +18,7 @@ conform.setup({
         markdown = { "markdownlint" },
         cucumber = { "reformat_gherkin"},
         xml = {"xmlformat"},
+        sh = {"beautysh"},
     },
 })
 

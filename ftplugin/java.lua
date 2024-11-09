@@ -64,8 +64,17 @@ vim.keymap.set("n", "<leader>JT", "<Cmd> lua require('jdtls').test_class()<CR>",
 -- Set a Vim motion to <Space> + <Shift>J + u to update the project configuration
 vim.keymap.set("n", "<leader>Ju", "<Cmd> JdtUpdateConfig<CR>", { desc = "[J]ava [U]pdate Config" })
 
+local jdtls = require("jdtls")
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
+
+local on_attach = function(client, bufnr)
+	vim.lsp.inlay_hint.enable(true)
+end
+
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
+	on_attach = on_attach,
 	-- The command that starts the language server
 	-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 	cmd = {
@@ -120,6 +129,10 @@ local config = {
 	-- for a list of options
 	settings = {
 		java = {
+			signatureHelp = {
+				enabled = true,
+			},
+			inlayhints = { parameterNames = { enabled = "all" } },
 			codeGeneration = {
 				generateComments = true,
 			},
@@ -148,12 +161,12 @@ local config = {
 	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 	--
 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
-	-- init_options = {
-	-- 	-- bundles = bundles_extentions,
-	--        bundles = {vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1)}
-	-- },
+	init_options = {
+		-- bundles = bundles_extentions,
+		-- bundles = {vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1)}
+		extendedClientCapabilities = extendedClientCapabilities,
+	},
 }
-
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require("jdtls").start_or_attach(config)
+jdtls.start_or_attach(config)

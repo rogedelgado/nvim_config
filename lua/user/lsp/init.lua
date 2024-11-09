@@ -90,6 +90,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--  For example, in C this would take you to the header.
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
+        -- Neotest mappings
+		map("<space>tm", "<cmd>lua require('neotest').run.run()<cr>", "[T]est [m]ethod")
+		map("<space>tf", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "[T]est [f]ile")
+		map("<space>tS", "<cmd>lua require('neotest').summary.toggle()<cr>", "[T]est [S]ummary")
+
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
 		--    See `:help CursorHold` for information about when this is executed
@@ -215,6 +220,7 @@ vim.list_extend(ensure_installed, {
 	"yamllint",
 	"isort",
 	"black",
+    "ruff",
 	"beautysh",
 	"ansible-lint",
 	"reformat-gherkin",
@@ -236,3 +242,7 @@ require("mason-lspconfig").setup({
 		end,
 	},
 })
+
+
+-- Load Neotest plugin
+require("user.lsp.neotest")

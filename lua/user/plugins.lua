@@ -112,6 +112,9 @@ require("lazy").setup({
 		build = ":TSUpdate",
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+	},
+	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
@@ -226,6 +229,16 @@ require("lazy").setup({
 
 	-- Unit testing for development
 	{ "nvim-neotest/nvim-nio" },
+	{
+		"rcasia/neotest-java",
+		ft = "java",
+		dependencies = {
+			"mfussenegger/nvim-jdtls",
+			"mfussenegger/nvim-dap", -- for the debugger
+			"rcarriga/nvim-dap-ui", -- recommended
+			"theHamsta/nvim-dap-virtual-text", -- recommended
+		},
+	},
 	{
 		"nvim-neotest/neotest",
 		dependencies = {

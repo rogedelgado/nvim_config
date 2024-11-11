@@ -63,7 +63,11 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>JT", "<Cmd> lua require('jdtls').test_class()<CR>", { desc = "[J]ava [T]est Class" })
 -- Set a Vim motion to <Space> + <Shift>J + u to update the project configuration
 vim.keymap.set("n", "<leader>Ju", "<Cmd> JdtUpdateConfig<CR>", { desc = "[J]ava [U]pdate Config" })
+-- Set a vim motion to <Space> + <Shift>J + t + j to jump to the test class. Check `:h jdtls.tests.goto_subjects` function
+vim.keymap.set("n", "<leader>Jtj", "<Cmd> lua require('jdtls.tests').goto_subjects()<CR>", { desc = "[J]ava [t]test [j]ump" })
 
+
+-- Jdtls definition of the extenden capabilities
 local jdtls = require("jdtls")
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
@@ -71,6 +75,12 @@ extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.trig
 local on_attach = function(client, bufnr)
 	vim.lsp.inlay_hint.enable(true)
 end
+
+-- Bundles jars to extends the functionalityu of jdtls.
+-- java-debug
+-- vscode-java-tests
+local bundles_extentions = { vim.fn.glob("/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar", 1) }
+vim.list_extend(bundles_extentions, vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n"))
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -162,8 +172,7 @@ local config = {
 	--
 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
 	init_options = {
-		-- bundles = bundles_extentions,
-		-- bundles = {vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1)}
+		bundles = bundles_extentions,
 		extendedClientCapabilities = extendedClientCapabilities,
 	},
 }

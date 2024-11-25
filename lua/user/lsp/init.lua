@@ -226,7 +226,7 @@ vim.list_extend(ensure_installed, {
 	"reformat-gherkin",
 	"xmlformatter",
 	"prettier",
-	"hadolint",
+	"hadolint", -- Dockerfile linter
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

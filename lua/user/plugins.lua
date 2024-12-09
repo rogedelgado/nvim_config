@@ -109,10 +109,10 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		-- commit = "f197a15b0d1e8d555263af20add51450e5aaa1f0",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		build = ":TSUpdate",
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 	{
 		"numToStr/Comment.nvim",

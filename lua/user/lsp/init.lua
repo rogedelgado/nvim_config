@@ -165,6 +165,7 @@ local servers = {
 	-- But for many setups, the LSP (`tsserver`) will work just fine
 	-- tsserver = {},
 	--
+    ts_ls = {}, --Typescript
 	marksman = {},
 	pyright = {},
 	ansiblels = {},

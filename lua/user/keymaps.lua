@@ -84,6 +84,8 @@ keymap("n", "<leader>tk", "<cmd>Telescope keymaps<cr>", opts)
 keymap("n", "<leader>ff", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>", opts)
 keymap("n", "<leader>fF", "<cmd>Telescope live_grep theme=ivy<cr>", opts)
 keymap("n", "<leader>fr", "<cmd>lua require('telescope.builtin').resume()<CR>", opts)
+keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin').grep_string()<CR>", opts)
+keymap("v", "<leader>fg", "<cmd>lua require('telescope.builtin').grep_string()<CR>", opts)
 
 -- General writing --
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)

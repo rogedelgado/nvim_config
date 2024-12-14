@@ -53,6 +53,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
 
+		-- Show the signature help window in insert mode.
+		vim.keymap.set("i", "<C-s>", function()
+			vim.lsp.buf.signature_help()
+		end, { buffer = event.buf, desc = "LSP: " .. "Signature help" })
+
 		-- Jump to the definition of the word under your cursor.
 		--  This is where a variable was first declared, or where a function is defined, etc.
 		--  To jump back, press <C-t>.
@@ -82,6 +87,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--  Most Language Servers support renaming across files, etc.
 		map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
+        -- Show diagnostics in floating window
+        map("<space>d", vim.diagnostic.open_float, "Show [d]iagnostic window")
+
 		-- Execute a code action, usually your cursor needs to be on top of an error
 		-- or a suggestion from your LSP for this to activate.
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -90,7 +98,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--  For example, in C this would take you to the header.
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-        -- Neotest mappings
+		-- Neotest mappings
 		map("<space>tm", "<cmd>lua require('neotest').run.run()<cr>", "[T]est [m]ethod")
 		map("<space>tf", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "[T]est [f]ile")
 		map("<space>tS", "<cmd>lua require('neotest').summary.toggle()<cr>", "[T]est [S]ummary")
@@ -133,6 +141,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end, "[T]oggle Inlay [H]ints")
 		end
+
+		-- Define handlers for signature help
+		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+			border = "rounded",
+			close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
+		})
+		-- Add border to the hover window
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+		})
 	end,
 })
 
@@ -165,7 +183,7 @@ local servers = {
 	-- But for many setups, the LSP (`tsserver`) will work just fine
 	-- tsserver = {},
 	--
-    ts_ls = {}, --Typescript
+	ts_ls = {}, --Typescript
 	marksman = {},
 	pyright = {},
 	ansiblels = {},
@@ -192,8 +210,15 @@ local servers = {
 				completion = {
 					callSnippet = "Replace",
 				},
-				-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-				-- diagnostics = { disable = { 'missing-fields' } },
+				runtime = {
+					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+					disable = { "missing-fields" },
+				},
 			},
 		},
 	},
@@ -221,7 +246,7 @@ vim.list_extend(ensure_installed, {
 	"yamllint",
 	"isort",
 	"black",
-    "ruff",
+	"ruff",
 	"beautysh",
 	"ansible-lint",
 	"reformat-gherkin",
@@ -243,7 +268,6 @@ require("mason-lspconfig").setup({
 		end,
 	},
 })
-
 
 -- Load Neotest plugin
 require("user.lsp.neotest")

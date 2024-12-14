@@ -32,7 +32,22 @@ cmp.setup({
 
 		-- If you prefer more traditional completion keymaps,
 		-- you can uncomment the following lines
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		-- ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+		["<CR>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				if luasnip.expandable() then
+					luasnip.expand()
+				else
+					cmp.confirm({
+						select = true,
+					})
+				end
+			else
+				fallback()
+			end
+		end),
+
 		-- ['<Tab>'] = cmp.mapping.select_next_item(),
 		-- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -69,6 +84,7 @@ cmp.setup({
 			-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
 			group_index = 0,
 		},
+        { name = "cmp-nvim-lsp-signature-help"},
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "path" },

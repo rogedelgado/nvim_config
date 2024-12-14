@@ -49,23 +49,28 @@ vim.keymap.set(
 vim.keymap.set(
 	"n",
 	"<leader>Jt",
-	"<Cmd> lua require('jdtls').test_nearest_method()<CR>",
+	"<Cmd> lua require('jdtls.dap').test_nearest_method()<CR>",
 	{ desc = "[J]ava [T]est Method" }
 )
 -- Set a Vim motion to <Space> + <Shift>J + t to run the test method that is currently selected in visual mode
 vim.keymap.set(
 	"v",
 	"<leader>Jt",
-	"<Esc><Cmd> lua require('jdtls').test_nearest_method(true)<CR>",
+	"<Esc><Cmd> lua require('jdtls.dap').test_nearest_method(true)<CR>",
 	{ desc = "[J]ava [T]est Method" }
 )
 -- Set a Vim motion to <Space> + <Shift>J + <Shift>T to run an entire test suite (class)
-vim.keymap.set("n", "<leader>JT", "<Cmd> lua require('jdtls').test_class()<CR>", { desc = "[J]ava [T]est Class" })
+vim.keymap.set("n", "<leader>JT", "<Cmd> lua require('jdtls.dap').test_class()<CR>", { desc = "[J]ava [T]est Class" })
 -- Set a Vim motion to <Space> + <Shift>J + u to update the project configuration
 vim.keymap.set("n", "<leader>Ju", "<Cmd> JdtUpdateConfig<CR>", { desc = "[J]ava [U]pdate Config" })
 -- Set a vim motion to <Space> + <Shift>J + t + j to jump to the test class. Check `:h jdtls.tests.goto_subjects` function
-vim.keymap.set("n", "<leader>Jtj", "<Cmd> lua require('jdtls.tests').goto_subjects()<CR>", { desc = "[J]ava [t]test [j]ump" })
-
+-- If there is no test to jump to, the jdtls.tests.generate() function is called instead. Again, read `:h jdtls.tests.goto_subjects`
+vim.keymap.set(
+	"n",
+	"<leader>Jtj",
+	"<Cmd> lua require('jdtls.tests').goto_subjects()<CR>",
+	{ desc = "[J]ava [t]test [j]ump" }
+)
 
 -- Jdtls definition of the extenden capabilities
 local jdtls = require("jdtls")
@@ -79,8 +84,16 @@ end
 -- Bundles jars to extends the functionalityu of jdtls.
 -- java-debug
 -- vscode-java-tests
-local bundles_extentions = { vim.fn.glob("/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar", 1) }
-vim.list_extend(bundles_extentions, vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n"))
+local bundles_extentions = {
+	vim.fn.glob(
+		"/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar",
+		1
+	),
+}
+vim.list_extend(
+	bundles_extentions,
+	vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n")
+)
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -134,6 +147,7 @@ local config = {
 	-- If you're using an earlier version, use: require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
 	root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
 
+
 	-- Here you can configure eclipse.jdt.ls specific settings
 	-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
 	-- for a list of options
@@ -145,6 +159,11 @@ local config = {
 			inlayhints = { parameterNames = { enabled = "all" } },
 			codeGeneration = {
 				generateComments = true,
+			},
+			completion = {
+				enabled = true,
+				guessMethodArguments = true,
+				overwrite = true,
 			},
 			configuration = {
 				-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -158,6 +177,10 @@ local config = {
 					{
 						name = "JavaSE-1.7",
 						path = "/usr/lib/jvm/java-7-jdk/",
+					},
+					{
+						name = "JavaSE-1.8",
+						path = "/usr/lib/jvm/java-8-openjdk/",
 					},
 				},
 			},
@@ -176,6 +199,9 @@ local config = {
 		extendedClientCapabilities = extendedClientCapabilities,
 	},
 }
+
+-- This line was needed to support Autocomplete parameters. Check the github discussion: https://github.com/mfussenegger/nvim-jdtls/discussions/440 
+config.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach(config)

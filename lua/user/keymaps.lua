@@ -126,6 +126,7 @@ keymap("n", "gx", [[:silent execute '!brave ' . shellescape(expand('<cfile>'), 1
 keymap("n", "ghl", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
 keymap("n", "ghh", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
 keymap("n", "gbl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", opts)
+keymap("n", "gtb", "<cmd>lua require 'gitsigns'.toggle_current_line_blame()<cr>", opts)
 keymap("n", "ghp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", opts)
 keymap("n", "ghr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", opts)
 keymap("n", "grb", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", opts)

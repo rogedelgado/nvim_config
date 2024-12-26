@@ -69,7 +69,7 @@ require("lazy").setup({
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
-            "hrsh7th/cmp-nvim-lsp-signature-help"
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 		},
 	},
 
@@ -139,14 +139,15 @@ require("lazy").setup({
 
 	-- Markdown support
 	"godlygeek/tabular", -- I do use this plugin. Keep it here. RDG
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
+	-- {
+	-- 	"iamcco/markdown-preview.nvim",
+	-- 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+	-- 	build = "cd app && npm install",
+	-- 	init = function()
+	-- 		vim.g.mkdp_filetypes = { "markdown" }
+	-- 	end,
+	-- 	ft = { "markdown" },
+	-- },
 	{ "dhruvasagar/vim-table-mode" }, -- Vim Table mode to aid in the writing of tables in markdown
 	{
 		"kiran94/edit-markdown-table.nvim",
@@ -312,6 +313,17 @@ require("lazy").setup({
 		build = function()
 			require("gitlab.server").build(true)
 		end, -- Builds the Go binary
+	},
+
+	-- AI code generator
+	{
+		"jackMort/ChatGPT.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
 	},
 }, {
 	dev = {

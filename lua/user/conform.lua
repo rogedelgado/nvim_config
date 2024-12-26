@@ -16,6 +16,7 @@ conform.setup({
         -- Conform will run the first available formatter
         javascript = { "prettier", stop_after_first = true },
         typescriptreact = { "prettier", stop_after_first = true },
+        typescript = { "prettier", stop_after_first = true },
         yaml = { "prettier" },
         markdown = { "markdownlint" },
         cucumber = { "reformat_gherkin"},

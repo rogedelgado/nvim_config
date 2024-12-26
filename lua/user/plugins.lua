@@ -139,15 +139,15 @@ require("lazy").setup({
 
 	-- Markdown support
 	"godlygeek/tabular", -- I do use this plugin. Keep it here. RDG
-	-- {
-	-- 	"iamcco/markdown-preview.nvim",
-	-- 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-	-- 	build = "cd app && npm install",
-	-- 	init = function()
-	-- 		vim.g.mkdp_filetypes = { "markdown" }
-	-- 	end,
-	-- 	ft = { "markdown" },
-	-- },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && npm install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
 	{ "dhruvasagar/vim-table-mode" }, -- Vim Table mode to aid in the writing of tables in markdown
 	{
 		"kiran94/edit-markdown-table.nvim",

@@ -1,1 +1,1 @@
-require('markdown').setup()
+vim.g.mkdp_browser='brave'

@@ -20,7 +20,7 @@ conform.setup({
         yaml = { "prettier" },
         markdown = { "markdownlint" },
         cucumber = { "reformat_gherkin"},
-        xml = {"xmlformat"},
+        xml = {"xmlformatter"},
         sh = {"beautysh"},
         bash = {"beautysh"},
     },

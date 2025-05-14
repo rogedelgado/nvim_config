@@ -87,12 +87,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--  Most Language Servers support renaming across files, etc.
 		map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
-        -- Show diagnostics in floating window
-        map("<space>d", vim.diagnostic.open_float, "Show [d]iagnostic window")
+		-- Show diagnostics in floating window
+		map("<space>d", vim.diagnostic.open_float, "Show [d]iagnostic window")
 
 		-- Execute a code action, usually your cursor needs to be on top of an error
 		-- or a suggestion from your LSP for this to activate.
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		vim.keymap.set("v", "<leader>ca", function()
+			vim.lsp.buf.code_action()
+		end, { buffer = event.buf, desc = "LSP: " .. "[C]ode [A]ction in visual mode" })
 
 		-- WARN: This is not Goto Definition, this is Goto Declaration.
 		--  For example, in C this would take you to the header.
@@ -185,7 +188,19 @@ local servers = {
 	--
 	ts_ls = {}, --Typescript
 	marksman = {},
-	pyright = {},
+	pylsp = {
+		settings = {
+			pylsp = {
+				plugins = {
+					pyflakes = { enabled = false },
+					pycodestyle = { enabled = false },
+					yapf = { enabled = false },
+					mccabe = { enabled = false },
+                    pylint = { enabled = false},
+				},
+			},
+		},
+	},
 	ansiblels = {},
 	dockerls = {},
 	bashls = {},

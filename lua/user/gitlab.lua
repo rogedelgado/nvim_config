@@ -13,4 +13,7 @@ gl.setup({
 			range = " |",
 		},
 	},
+    popup = {
+        temp_registers = {'"', "+", "9"}
+    }
 })

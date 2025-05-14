@@ -10,7 +10,7 @@ conform.setup({
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
         -- python = { "isort", "black" },
-        python = { "isort", "ruff_format" },
+        python = { "isort", "black" },
         -- You can customize some of the format options for the filetype (:help conform.format)
         -- rust = { "rustfmt", lsp_format = "fallback" },
         -- Conform will run the first available formatter
@@ -23,6 +23,7 @@ conform.setup({
         xml = {"xmlformatter"},
         sh = {"beautysh"},
         bash = {"beautysh"},
+        sql = {"pg_format"},
     },
 })
 

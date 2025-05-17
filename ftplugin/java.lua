@@ -103,10 +103,10 @@ local config = {
 	cmd = {
 
 		-- 💀
-		"/usr/lib/jvm/java-17-openjdk/bin/java", -- or '/path/to/java17_or_newer/bin/java'
+		"/usr/lib/jvm/java-21-openjdk/bin/java", -- or '/path/to/java17_or_newer/bin/java'
 		-- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
-		"-javaagent:/home/roge/Downloads/jdtls/lombok.jar",
+		"-javaagent:/home/roge/Downloads/jdtls_1.46.1/lombok.jar",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -121,14 +121,14 @@ local config = {
 
 		-- 💀
 		"-jar",
-		"/home/roge/Downloads/jdtls/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar",
+		"/home/roge/Downloads/jdtls_1.46.1/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
 		-- Must point to the                                                     Change this to
 		-- eclipse.jdt.ls installation                                           the actual version
 
 		-- 💀
 		"-configuration",
-		"/home/roge/Downloads/jdtls/config_linux",
+		"/home/roge/Downloads/jdtls_1.46.1/config_linux",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
 		-- Must point to the                      Change to one of `linux`, `win` or `mac`
 		-- eclipse.jdt.ls installation            Depending on your system.

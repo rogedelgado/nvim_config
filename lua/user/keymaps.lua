@@ -78,6 +78,7 @@ keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 -- Telescope
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<cr>", opts)
 keymap("n", "<leader>tk", "<cmd>Telescope keymaps<cr>", opts)
+keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
 
 -- Find files and text inside files

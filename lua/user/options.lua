@@ -35,7 +35,6 @@ vim.opt.sidescrolloff = 8
 vim.opt.showtabline = 2
 vim.opt.hidden = true
 vim.opt.foldenable=false                        -- Disable the automatic folding. For some reason the automatic folding causes weird behavior.
-vim.o.winborder = 'rounded'                     -- Use rouded borders on all floating windows.
 
 -- vim.opt.shortmess:append "c"
 

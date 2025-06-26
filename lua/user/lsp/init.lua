@@ -141,7 +141,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			severity_sort = true,
 			float = { border = "rounded", source = "if_many" },
 			underline = { severity = vim.diagnostic.severity.ERROR },
-			signs =  {
+			signs = {
 				text = {
 					[vim.diagnostic.severity.ERROR] = "󰅚 ",
 					[vim.diagnostic.severity.WARN] = "󰀪 ",
@@ -217,10 +217,7 @@ local servers = {
 		settings = {
 			yaml = {
 				schemas = {
-					["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
-					["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "**/*openapi.yml",
-					["https://json.schemastore.org/mkdocs-1.6.json"] = "mkdocs.yml",
-					["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose*.{yml,yaml}",
+					["https://spec.openapis.org/oas/3.1/schema/2022-10-07"] = "**/openapi/*.yaml",
 				},
 			},
 		},

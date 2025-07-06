@@ -134,6 +134,10 @@ keymap("n", "grb", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", opts)
 keymap("n", "gbb", ":G blame<cr>", opts)
 keymap("n", "gcb", "<cmd>Telescope git_branches<cr>", opts)
 
+-- CodeCompanion mappings ---
+keymap("n", "aic", ":CodeCompanionChat<cr>", opts)
+keymap("n", "ait", ":CodeCompanionChat Toggle<cr>", opts)
+
 
 -- Custom commands
 vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."

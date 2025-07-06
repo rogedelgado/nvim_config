@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- UI elements
 	"nvim-lua/popup.nvim",
-	"nvim-lua/plenary.nvim",
+	{ "nvim-lua/plenary.nvim", branch = "master" },
 	{
 		"nvim-lualine/lualine.nvim",
 	},
@@ -23,7 +23,8 @@ require("lazy").setup({
 	},
 	{
 		"folke/zen-mode.nvim",
-	}, --Distraction free writing
+	},
+	--Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
 	"shaunsingh/nord.nvim",
 	"folke/tokyonight.nvim",
@@ -42,6 +43,16 @@ require("lazy").setup({
 			"TmuxNavigateRight",
 			"TmuxNavigatePrevious",
 		},
+	},
+	{
+		"echasnovski/mini.diff",
+		config = function()
+			local diff = require("mini.diff")
+			diff.setup({
+				-- Disabled by default
+				source = diff.gen_source.none(),
+			})
+		end,
 	},
 	-- Autocompletions
 	{
@@ -317,12 +328,11 @@ require("lazy").setup({
 
 	-- AI code generator
 	{
-		"jackMort/ChatGPT.nvim",
-		event = "VeryLazy",
+		"olimorris/codecompanion.nvim",
+		opts = {},
 		dependencies = {
-			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
+			"nvim-treesitter/nvim-treesitter",
 		},
 	},
 }, {

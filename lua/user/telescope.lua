@@ -51,6 +51,7 @@ telescope.setup({
 			},
 
 			n = {
+				["dd"] = actions.delete_buffer,
 				["<esc>"] = actions.close,
 				["<CR>"] = actions.select_default,
 				["<C-x>"] = actions.select_horizontal,
@@ -93,6 +94,13 @@ telescope.setup({
 		-- }
 		-- Now the picker_config_key will be applied every time you call this
 		-- builtin picker
+		buffers = {
+			mappings = {
+				n = {
+					["dd"] = actions.delete_buffer,
+				},
+			},
+		},
 	},
 	extensions = {
 		media_files = {

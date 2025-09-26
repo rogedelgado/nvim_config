@@ -1,4 +1,4 @@
--- Setup language servers.
+-- Setup language servers.lsp/ini
 
 -- Brief aside: **What is LSP?**
 --
@@ -24,6 +24,13 @@
 --
 -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
 -- and elegantly composed help section, `:help lsp-vs-treesitter`
+
+
+-- Enableling LSP servers
+vim.lsp.enable({'basedpyright', 'lua_ls'})
+
+
+
 
 --  This function gets run when an LSP attaches to a particular buffer.
 --    That is to say, every time a new file is opened that is associated with
@@ -57,6 +64,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("i", "<C-s>", function()
 			vim.lsp.buf.signature_help()
 		end, { buffer = event.buf, desc = "LSP: " .. "Signature help" })
+
+
+		-- Toggle inlay hints
+		map("<leader>ti", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "[t]oggle [i]nlay hints")
 
 		-- Jump to the definition of the word under your cursor.
 		--  This is where a variable was first declared, or where a function is defined, etc.
@@ -170,73 +181,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
--- LSP servers and clients are able to communicate to each other what features they support.
---  By default, Neovim doesn't support everything that is in the LSP specification.
---  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
---  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. Available keys are:
---  - cmd (table): Override the default command used to start the server
---  - filetypes (table): Override the default list of associated filetypes for the server
---  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
---  - settings (table): Override the default settings passed when initializing the server.
---        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-local servers = {
-	-- clangd = {},
-	-- gopls = {},
-	-- pyright = {},
-	-- rust_analyzer = {},
-	-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-	--
-	-- Some languages (like typescript) have entire language plugins that can be useful:
-	--    https://github.com/pmizio/typescript-tools.nvim
-	--
-	-- But for many setups, the LSP (`tsserver`) will work just fine
-	-- tsserver = {},
-	--
-	ts_ls = {}, --Typescript
-	marksman = {},
-	basedpyright = {},
-	ansiblels = {},
-	dockerls = {},
-	bashls = {},
-	yamlls = {
-		settings = {
-			yaml = {
-				schemas = {
-					["https://spec.openapis.org/oas/3.1/schema/2022-10-07"] = "openapi/*.yaml",
-				},
-			},
-		},
-	},
-	lua_ls = {
-		-- cmd = {...},
-		-- filetypes = { ...},
-		-- capabilities = {},
-		settings = {
-			Lua = {
-				completion = {
-					callSnippet = "Replace",
-				},
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-					disable = { "missing-fields" },
-				},
-			},
-		},
-	},
-}
-
 -- Ensure the servers and tools above are installed
 --  To check the current status of installed tools and/or manually install
 --  other tools, you can run
@@ -248,36 +192,3 @@ require("mason").setup({
 		"mason.providers.client", --For some reason this config is needed in my setup. See :h mason-default-settings, in the providers section
 	},
 })
-
--- You can add other tools here that you want Mason to install
--- for you, so that they are available from within Neovim.
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-	"stylua", -- Used to format Lua code
-	"markdownlint", -- Linter for markdown
-	"yamllint",
-	"ruff",
-	"beautysh",
-	"ansible-lint",
-	"reformat-gherkin",
-	"xmlformatter",
-	"prettier",
-	"hadolint", -- Dockerfile linter
-})
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-require("mason-lspconfig").setup({
-	handlers = {
-		function(server_name)
-			local server = servers[server_name] or {}
-			-- This handles overriding only values explicitly passed
-			-- by the server configuration above. Useful when disabling
-			-- certain features of an LSP (for example, turning off formatting for tsserver)
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-			require("lspconfig")[server_name].setup(server)
-		end,
-	},
-})
-
--- Load Neotest plugin
-require("user.lsp.neotest")

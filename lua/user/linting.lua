@@ -2,7 +2,7 @@ local lint = require("lint")
 
 lint.linters_by_ft = {
 	markdown = { "markdownlint" },
-	python = { "flake8" },
+	python = { "ruff" },
 	yaml = { "yamllint" },
 	["yaml.ansible"] = { "ansible_lint" },
 	dockerfile = { "hadolint" },

@@ -10,7 +10,7 @@ conform.setup({
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
         -- python = { "isort", "black" },
-        python = { "isort", "black" },
+        python = { "ruff" },
         -- You can customize some of the format options for the filetype (:help conform.format)
         -- rust = { "rustfmt", lsp_format = "fallback" },
         -- Conform will run the first available formatter

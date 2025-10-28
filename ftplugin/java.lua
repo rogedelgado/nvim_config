@@ -72,41 +72,48 @@ vim.keymap.set(
 	{ desc = "[J]ava [t]test [j]ump" }
 )
 
--- Jdtls definition of the extenden capabilities
-local jdtls = require("jdtls")
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
-extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
+-- Jdtls configuration
 
-local on_attach = function(client, bufnr)
-	vim.lsp.inlay_hint.enable(true)
-end
-
--- Bundles jars to extends the functionalityu of jdtls.
--- java-debug
--- vscode-java-tests
-local bundles_extentions = {
+local bundles = {
 	vim.fn.glob(
-		"/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar",
+		"/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.2.jar",
 		1
 	),
 }
-vim.list_extend(
-	bundles_extentions,
-	vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n")
-)
 
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+-- This is the new part
+local java_test_bundles = vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n")
+local excluded = {
+  "com.microsoft.java.test.runner-jar-with-dependencies.jar",
+  "jacocoagent.jar",
+}
+for _, java_test_jar in ipairs(java_test_bundles) do
+  local fname = vim.fn.fnamemodify(java_test_jar, ":t")
+  if not vim.tbl_contains(excluded, fname) then
+    table.insert(bundles, java_test_jar)
+  end
+end
+-- End of the new part
+
+-- See `:help vim.lsp.start` for an overview of the supported `config` options.
 local config = {
-	on_attach = on_attach,
-	-- The command that starts the language server
-	-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+	name = "jdtls",
+
+	-- `cmd` defines the executable to launch eclipse.jdt.ls.
+	-- `jdtls` must be available in $PATH and you must have Python3.9 for this to work.
+	--
+	-- As alternative you could also avoid the `jdtls` wrapper and launch
+	-- eclipse.jdt.ls via the `java` executable
+	-- See: https://github.com/eclipe/eclipse.jdt.ls#running-from-the-command-line
+	-- cmd = { "jdtls", "-javaagent:/home/roge/Downloads/jdtls/lombok.jar", "-data", workspace_dir },
+
 	cmd = {
 
 		-- 💀
 		"/usr/lib/jvm/java-21-openjdk/bin/java", -- or '/path/to/java17_or_newer/bin/java'
 		-- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
-		"-javaagent:/home/roge/Downloads/jdtls_1.46.1/lombok.jar",
+		"-javaagent:/home/roge/Downloads/jdtls/lombok.jar",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -121,14 +128,14 @@ local config = {
 
 		-- 💀
 		"-jar",
-		"/home/roge/Downloads/jdtls_1.46.1/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar",
+		"/home/roge/Downloads/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250519-0528.jar",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
 		-- Must point to the                                                     Change this to
 		-- eclipse.jdt.ls installation                                           the actual version
 
 		-- 💀
 		"-configuration",
-		"/home/roge/Downloads/jdtls_1.46.1/config_linux",
+		"/home/roge/Downloads/jdtls/config_linux",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
 		-- Must point to the                      Change to one of `linux`, `win` or `mac`
 		-- eclipse.jdt.ls installation            Depending on your system.
@@ -139,17 +146,12 @@ local config = {
 		workspace_dir,
 	},
 
-	-- 💀
-	-- This is the default if not provided, you can remove it. Or adjust as needed.
-	-- One dedicated LSP server & client will be started per unique root_dir
-	--
-	-- vim.fs.root requires Neovim 0.10.
-	-- If you're using an earlier version, use: require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
-	root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
-
+	-- `root_dir` must point to the root of your project.
+	-- See `:help vim.fs.root`
+	root_dir = vim.fs.root(0, { "gradlew", ".git", "mvnw" }),
 
 	-- Here you can configure eclipse.jdt.ls specific settings
-	-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+	-- See https//github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
 	-- for a list of options
 	settings = {
 		java = {
@@ -171,6 +173,10 @@ local config = {
 				-- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
 				runtimes = {
 					{
+						name = "JavaSE-21",
+						path = "/usr/lib/jvm/java-21-openjdk/",
+					},
+					{
 						name = "JavaSE-11",
 						path = "/usr/lib/jvm/java-11-openjdk/",
 					},
@@ -187,21 +193,149 @@ local config = {
 		},
 	},
 
-	-- Language server `initializationOptions`
-	-- You need to extend the `bundles` with paths to jar files
-	-- if you want to use additional eclipse.jdt.ls plugins.
+	-- This sets the `initializationOptions` sent to the language server
+	-- If you plan on using additional eclipse.jdt.ls plugins like java-debug
+	-- you'll need to set the `bundles`
 	--
-	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+	-- See https://codeberg.org/mfussenegger/nvim-jdtls#java-debug-installation
 	--
-	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
+	-- If you don't plan on any eclipse.jdt.ls plugins you can remove this
 	init_options = {
-		bundles = bundles_extentions,
-		extendedClientCapabilities = extendedClientCapabilities,
+		bundles = bundles,
 	},
 }
+require("jdtls").start_or_attach(config)
 
--- This line was needed to support Autocomplete parameters. Check the github discussion: https://github.com/mfussenegger/nvim-jdtls/discussions/440 
-config.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
--- This starts a new client & server,
--- or attaches to an existing client & server depending on the `root_dir`.
-jdtls.start_or_attach(config)
+-- Jdtls definition of the extenden capabilities
+-- local jdtls = require("jdtls")
+-- local extendedClientCapabilities = jdtls.extendedClientCapabilities
+-- extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
+--
+-- local on_attach = function(client, bufnr)
+-- 	vim.lsp.inlay_hint.enable(true)
+-- end
+--
+-- -- Bundles jars to extends the functionalityu of jdtls.
+-- -- java-debug
+-- -- vscode-java-tests
+-- local bundles_extentions = {
+-- 	vim.fn.glob(
+-- 		"/home/roge/Downloads/jdtls/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar",
+-- 		1
+-- 	),
+-- }
+-- vim.list_extend(
+-- 	bundles_extentions,
+-- 	vim.split(vim.fn.glob("/home/roge/Downloads/jdtls/vscode-java-test/server/*.jar", 1), "\n")
+-- )
+--
+-- -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
+-- local config = {
+-- 	on_attach = on_attach,
+-- 	-- The command that starts the language server
+-- 	-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+-- 	cmd = {
+--
+-- 		-- 💀
+-- 		"/usr/lib/jvm/java-21-openjdk/bin/java", -- or '/path/to/java17_or_newer/bin/java'
+-- 		-- depends on if `java` is in your $PATH env variable and if it points to the right version.
+--
+-- 		"-javaagent:/home/roge/Downloads/jdtls_1.46.1/lombok.jar",
+-- 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
+-- 		"-Dosgi.bundles.defaultStartLevel=4",
+-- 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
+-- 		"-Dlog.protocol=true",
+-- 		"-Dlog.level=ALL",
+-- 		"-Xmx1g",
+-- 		"--add-modules=ALL-SYSTEM",
+-- 		"--add-opens",
+-- 		"java.base/java.util=ALL-UNNAMED",
+-- 		"--add-opens",
+-- 		"java.base/java.lang=ALL-UNNAMED",
+--
+-- 		-- 💀
+-- 		"-jar",
+-- 		"/home/roge/Downloads/jdtls_1.46.1/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar",
+-- 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
+-- 		-- Must point to the                                                     Change this to
+-- 		-- eclipse.jdt.ls installation                                           the actual version
+--
+-- 		-- 💀
+-- 		"-configuration",
+-- 		"/home/roge/Downloads/jdtls_1.46.1/config_linux",
+-- 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
+-- 		-- Must point to the                      Change to one of `linux`, `win` or `mac`
+-- 		-- eclipse.jdt.ls installation            Depending on your system.
+--
+-- 		-- 💀
+-- 		-- See `data directory configuration` section in the README
+-- 		"-data",
+-- 		workspace_dir,
+-- 	},
+--
+-- 	-- 💀
+-- 	-- This is the default if not provided, you can remove it. Or adjust as needed.
+-- 	-- One dedicated LSP server & client will be started per unique root_dir
+-- 	--
+-- 	-- vim.fs.root requires Neovim 0.10.
+-- 	-- If you're using an earlier version, use: require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+-- 	root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
+--
+--
+-- 	-- Here you can configure eclipse.jdt.ls specific settings
+-- 	-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+-- 	-- for a list of options
+-- 	settings = {
+-- 		java = {
+-- 			signatureHelp = {
+-- 				enabled = true,
+-- 			},
+-- 			inlayhints = { parameterNames = { enabled = "all" } },
+-- 			codeGeneration = {
+-- 				generateComments = true,
+-- 			},
+-- 			completion = {
+-- 				enabled = true,
+-- 				guessMethodArguments = true,
+-- 				overwrite = true,
+-- 			},
+-- 			configuration = {
+-- 				-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+-- 				-- And search for `interface RuntimeOption`
+-- 				-- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
+-- 				runtimes = {
+-- 					{
+-- 						name = "JavaSE-11",
+-- 						path = "/usr/lib/jvm/java-11-openjdk/",
+-- 					},
+-- 					{
+-- 						name = "JavaSE-1.7",
+-- 						path = "/usr/lib/jvm/java-7-jdk/",
+-- 					},
+-- 					{
+-- 						name = "JavaSE-1.8",
+-- 						path = "/usr/lib/jvm/java-8-openjdk/",
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+--
+-- 	-- Language server `initializationOptions`
+-- 	-- You need to extend the `bundles` with paths to jar files
+-- 	-- if you want to use additional eclipse.jdt.ls plugins.
+-- 	--
+-- 	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+-- 	--
+-- 	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
+-- 	init_options = {
+-- 		bundles = bundles_extentions,
+-- 		extendedClientCapabilities = extendedClientCapabilities,
+-- 	},
+-- }
+--
+-- -- This line was needed to support Autocomplete parameters. Check the github discussion: https://github.com/mfussenegger/nvim-jdtls/discussions/440
+-- config.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- -- This starts a new client & server,
+-- -- or attaches to an existing client & server depending on the `root_dir`.
+-- jdtls.start_or_attach(config)

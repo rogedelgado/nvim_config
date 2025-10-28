@@ -19,5 +19,6 @@ require "user.telekasten"
 require "user.gitlab"
 require "user.indent-line"
 require "user.lsp"
+require "user.lsp.dap"
 require("user.lsp.neotest")
 require "user.codecompanion"

@@ -106,6 +106,9 @@ require("lazy").setup({
 		"nvim-telescope/telescope-media-files.nvim",
 		-- commit = "0826c7a730bc4d36068f7c85cf4c5b3fd9fb570a",
 	},
+	{
+		"nvim-telescope/telescope-ui-select.nvim",
+	},
 
 	-- Git
 	{
@@ -215,11 +218,29 @@ require("lazy").setup({
 		main = "ibl",
 	},
 
+	-- Debugging
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			-- Creates a beautiful debugger UI
+			"rcarriga/nvim-dap-ui",
+
+			-- Required dependency for nvim-dap-ui
+			"nvim-neotest/nvim-nio",
+
+			-- Installs the debug adapters for you
+			"mason-org/mason.nvim",
+
+			-- Add your own debuggers here
+			-- "leoluz/nvim-dap-go",
+		},
+	},
+
 	-- LSP configuration ---
 	{
 		"mfussenegger/nvim-jdtls",
 		dependencies = {
-			{ "mfussenegger/nvim-dap" },
+			 "mfussenegger/nvim-dap" ,
 		},
 	},
 	{
@@ -275,37 +296,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Debugging
-	{
-		"mfussenegger/nvim-dap",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = "mfussenegger/nvim-dap",
-		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup()
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
-	},
-	{
-		"mfussenegger/nvim-dap-python",
-		ft = "python",
-		dependencies = { "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui" },
-		config = function(_, opts)
-			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-			require("dap-python").setup(path)
-		end,
-	},
 	{ "jrop/jq.nvim" },
 
 	-- This allows not to use postman anymore

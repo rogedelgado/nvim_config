@@ -240,7 +240,7 @@ require("lazy").setup({
 	{
 		"mfussenegger/nvim-jdtls",
 		dependencies = {
-			 "mfussenegger/nvim-dap" ,
+			"mfussenegger/nvim-dap",
 		},
 	},
 	{
@@ -275,7 +275,16 @@ require("lazy").setup({
 	{ "freitass/todo.txt-vim" },
 
 	-- Unit testing for development
-	{ "nvim-neotest/nvim-nio" },
+	{ "nvim-neotest/neotest-python" },
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-neotest/nvim-nio",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+		},
+	},
 	{
 		"rcasia/neotest-java",
 		ft = "java",
@@ -286,16 +295,6 @@ require("lazy").setup({
 			"theHamsta/nvim-dap-virtual-text", -- recommended
 		},
 	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-neotest/neotest-python",
-		},
-	},
-
 	{ "jrop/jq.nvim" },
 
 	-- This allows not to use postman anymore

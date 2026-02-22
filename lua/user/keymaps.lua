@@ -78,7 +78,6 @@ keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 -- Telescope
 keymap("n", "<leader>tb", "<cmd>Telescope buffers<cr>", opts)
 keymap("n", "<leader>tk", "<cmd>Telescope keymaps<cr>", opts)
-keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
 
 -- Find files and text inside files
@@ -90,8 +89,7 @@ keymap("v", "<leader>fg", "<cmd>lua require('telescope.builtin').grep_string()<C
 
 -- General writing --
 keymap("n", "<leader>w", "<cmd>set wrap! linebreak<cr>", opts)
-keymap("n", "<leader>De", "<cmd>lua vim.diagnostic.enable()<cr>", opts)
-keymap("n", "<leader>Dd", "<cmd>lua vim.diagnostic.disable()<cr>", opts)
+keymap("n", "<leader>Dd", "<cmd>lua vim.diagnostic.enable(not vim.diagnostic.is_enabled())<cr>", opts)
 
 -- Translate
 keymap("v", "ten", ":Translate EN --source=ES<CR>", opts)

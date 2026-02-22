@@ -42,18 +42,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- NOTE: Remember that Lua is a real programming language, and as such it is possible
 		-- to define small helper and utility functions so you don't have to repeat yourself.
 
-		-- Configuration of the diagnostics signs
-		local signs = {
-			{ name = "DiagnosticSignError", text = "" },
-			{ name = "DiagnosticSignWarn", text = "" },
-			{ name = "DiagnosticSignHint", text = "" },
-			{ name = "DiagnosticSignInfo", text = "" },
-		}
-
-		for _, sign in ipairs(signs) do
-			vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-		end
-
 		-- In this case, we create a function that lets us more easily define mappings specific
 		-- for LSP related items. It sets the mode, buffer and description for us each time.
 		local map = function(keys, func, desc)
@@ -80,6 +68,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Jump to the implementation of the word under your cursor.
 		--  Useful when your language has ways of declaring types without an actual implementation.
 		map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+
+        -- Show diagnostics of the  current buffer in a telescope window
+        map("<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", "[S]how [D]iagnostics")
 
 		map("K", function()
 			vim.lsp.buf.hover({ border = "rounded", title = " hover " })
@@ -120,6 +111,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("<space>tm", "<cmd>lua require('neotest').run.run()<cr>", "[T]est [m]ethod")
 		map("<space>tf", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "[T]est [f]ile")
 		map("<space>tS", "<cmd>lua require('neotest').summary.toggle()<cr>", "[T]est [S]ummary")
+		map("<space>to", "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "[T]est [O]utput")
+
 
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
@@ -164,19 +157,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					[vim.diagnostic.severity.HINT] = "󰌶 ",
 				},
 			} or {},
-			virtual_text = {
-				source = "if_many",
-				spacing = 2,
-				format = function(diagnostic)
-					local diagnostic_message = {
-						[vim.diagnostic.severity.ERROR] = diagnostic.message,
-						[vim.diagnostic.severity.WARN] = diagnostic.message,
-						[vim.diagnostic.severity.INFO] = diagnostic.message,
-						[vim.diagnostic.severity.HINT] = diagnostic.message,
-					}
-					return diagnostic_message[diagnostic.severity]
-				end,
-			},
+			-- virtual_text = {true},
+            virtual_lines = true,
 		})
 	end,
 })

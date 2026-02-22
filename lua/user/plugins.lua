@@ -24,6 +24,13 @@ require("lazy").setup({
 	{
 		"folke/zen-mode.nvim",
 	},
+	{
+		"nemanjamalesija/smart-paste.nvim",
+		event = "VeryLazy",
+		config = true,
+	},
+	{ "kevinhwang91/promise-async" },
+	{ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
 	--Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
 	"shaunsingh/nord.nvim",
@@ -109,6 +116,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
+	{ "isak102/telescope-git-file-history.nvim" },
 
 	-- Git
 	{
@@ -277,15 +285,6 @@ require("lazy").setup({
 	-- Unit testing for development
 	{ "nvim-neotest/neotest-python" },
 	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-neotest/nvim-nio",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
-		},
-	},
-	{
 		"rcasia/neotest-java",
 		ft = "java",
 		dependencies = {
@@ -293,6 +292,15 @@ require("lazy").setup({
 			"mfussenegger/nvim-dap", -- for the debugger
 			"rcarriga/nvim-dap-ui", -- recommended
 			"theHamsta/nvim-dap-virtual-text", -- recommended
+		},
+	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-neotest/nvim-nio",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
 		},
 	},
 	{ "jrop/jq.nvim" },
@@ -334,11 +342,14 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 		},
 	},
-}, {
-	dev = {
-		path = "/home/roge/code",
-		patterns = { "roge" }, -- For example {"folke"}
-		fallback = false, -- Fallback to git when local plugin doesn't exist
+	{
+		dir = "/home/roge/code/openproject.nvim",
+		config = function()
+			require("openproject").setup({
+				url = "https://op.sicom.ws",
+				api_key_cmd = "cat ~/.openproject_key",
+			})
+		end,
 	},
 })
 

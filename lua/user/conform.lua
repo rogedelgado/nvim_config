@@ -12,7 +12,7 @@ conform.setup({
         -- python = { "isort", "black" },
         python = { "ruff" },
         -- You can customize some of the format options for the filetype (:help conform.format)
-        -- rust = { "rustfmt", lsp_format = "fallback" },
+        rust = { "rustfmt", lsp_format = "fallback" },
         -- Conform will run the first available formatter
         javascript = { "prettier", stop_after_first = true },
         typescriptreact = { "prettier", stop_after_first = true },

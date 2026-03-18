@@ -1,21 +1,30 @@
 require("codecompanion").setup({
-	adapters = {
-		http = {
-			gemini = function()
-				return require("codecompanion.adapters").extend("gemini", {
-					env = {
-						api_key = "cmd:cat /home/roge/.gemini",
-					},
-				})
-			end,
-		},
-	},
-	strategies = {
+	interactions = {
 		chat = {
-			adapter = "gemini",
+			-- You can specify an adapter by name and model (both ACP and HTTP)
+			adapter = {
+				name = "ollama",
+				model = "gpt-oss",
+			},
 		},
+		-- Or, just specify the adapter by name
 		inline = {
-			adapter = "gemini",
+			adapter = {
+				name = "ollama",
+				model = "gpt-oss",
+			},
+		},
+		cmd = {
+			adapter = {
+				name = "ollama",
+				model = "gpt-oss",
+			},
+		},
+		background = {
+			adapter = {
+				name = "ollama",
+				model = "gpt-oss",
+			},
 		},
 	},
 })

@@ -40,6 +40,9 @@ keymap("n", "<leader>c", "<cmd>bdelete!<CR>", opts)
 keymap("n", "<leader>q", ":q!<CR>", opts)
 
 
+-- Quickfix
+keymap("n","<leader>c", ":copen<CR>", opts)
+
 -- NO highlight
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 

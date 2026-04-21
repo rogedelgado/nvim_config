@@ -7,6 +7,7 @@ gl.setup({
 	discussion_tree = {
 		position = "bottom",
 	},
+    attachment_dir = "/home/roge/",
 	discussion_signs = {
 		icons = {
 			comment = "",

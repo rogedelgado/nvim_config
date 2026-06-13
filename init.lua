@@ -23,3 +23,4 @@ require "user.lsp.dap"
 require("user.lsp.neotest")
 require "user.codecompanion"
 require "user.ufo-config"
+require "user.colorizer"

@@ -31,6 +31,7 @@ require("lazy").setup({
 	},
 	{ "kevinhwang91/promise-async" },
 	{ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
+    {"norcalli/nvim-colorizer.lua"},
 	--Distraction free writing
 	"lunarvim/colorschemes", -- A bunch of colorschemes you can try out
 	"shaunsingh/nord.nvim",

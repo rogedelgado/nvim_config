@@ -139,6 +139,9 @@ keymap("n", "gcb", "<cmd>Telescope git_branches<cr>", opts)
 keymap("n", "aic", ":CodeCompanionChat<cr>", opts)
 keymap("n", "ait", ":CodeCompanionChat Toggle<cr>", opts)
 
+-- Markdown customization
+keymap("n", "<leader>rmt", ":RenderMarkdown toggle<cr>", opts)
+
 
 -- Custom commands
 vim.cmd "command Curl set splitright | vnew | set filetype=sh | read !sh # | jq ."
